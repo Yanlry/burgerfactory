@@ -95,20 +95,8 @@ export function Hero() {
   );
 }
 
-// ─── TEMP TEST — supprime les 3 lignes ci-dessous quand les tests sont finis ──
-const FORCE_OPEN = true; // passe à false pour tester l'état fermé
-const FORCE_NEXT = "Ferme à 00:00";
-const FORCE_SCHEDULE = "12:00–14:00 · 18:00–22:00";
-// ─────────────────────────────────────────────────────────────────────────────
-
 // ─── Statut ouvert/fermé ─────────────────────────────────────────────────────
 function getOpenStatus(): { open: boolean; statusText: string; nextInfo: string; todaySchedule: string } {
-  if (FORCE_OPEN !== null) return {
-    open: FORCE_OPEN,
-    statusText: FORCE_OPEN ? "OUVERT" : "FERMÉ",
-    nextInfo: FORCE_NEXT,
-    todaySchedule: FORCE_SCHEDULE,
-  };
   const now = new Date();
   const DAY = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
   const h   = now.getHours();
