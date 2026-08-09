@@ -95,8 +95,20 @@ export function Hero() {
   );
 }
 
+// ─── TEMP TEST — supprime les 3 lignes ci-dessous quand les tests sont finis ──
+const FORCE_OPEN = true; // passe à false pour tester l'état fermé
+const FORCE_NEXT = "Ferme à 00:00";
+const FORCE_SCHEDULE = "12:00–14:00 · 18:00–22:00";
+// ─────────────────────────────────────────────────────────────────────────────
+
 // ─── Statut ouvert/fermé ─────────────────────────────────────────────────────
 function getOpenStatus(): { open: boolean; statusText: string; nextInfo: string; todaySchedule: string } {
+  if (FORCE_OPEN !== null) return {
+    open: FORCE_OPEN,
+    statusText: FORCE_OPEN ? "OUVERT" : "FERMÉ",
+    nextInfo: FORCE_NEXT,
+    todaySchedule: FORCE_SCHEDULE,
+  };
   const now = new Date();
   const DAY = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
   const h   = now.getHours();
@@ -185,32 +197,58 @@ function HeroMobile() {
       </div>
 
       {/* ── Titre + indicateur ouvert/fermé ─────────────────────────── */}
-      <motion.div
-        className="px-6 mt-8"
-        initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, delay: 0.45, ease: "easeOut" }}
-      >
-        <span className="font-body text-[0.58rem] text-gold tracking-[0.32em] uppercase">
-          Restaurant · Haubourdin
-        </span>
-        <h1
-          className="font-display text-warm-white leading-none mt-1 block"
-          style={{
-            fontSize: "clamp(2.6rem, 14.5vw, 5rem)",
-            transform: "scaleY(1.6)",
-            transformOrigin: "center center",
-            marginTop: "0.35em",
-            marginBottom: "0.35em",
-          }}
+      <div className="px-6 mt-8 flex flex-col items-center text-center">
+        <motion.span
+          className="font-body text-[0.58rem] text-gold tracking-[0.32em] uppercase"
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" as const }}
         >
-          BURGER FACTORY
+          Restaurant · Haubourdin
+        </motion.span>
+        <h1
+          aria-label="Burger Factory"
+          className="flex items-end justify-center w-full"
+          style={{ fontSize: "clamp(2.8rem, 15vw, 5.4rem)", marginTop: "0.18em", marginBottom: "0", position: "relative", top: "0.3em" }}
+        >
+          {"BURGER FACTORY".split("").map((char, i) => {
+            if (char === " ") return (
+              <span key={i} style={{ display: "inline-block", width: "0.26em" }} />
+            );
+            const total = 14;
+            const center = (total - 1) / 2;
+            const dist = Math.abs(i - center) / center;
+            const sizeFactor = 0.60 + (1 - dist) * 0.60;
+            const targetOpacity = 0.40 + (1 - dist) * 0.60;
+            const isCenter = dist < 0.35;
+            return (
+              <motion.span
+                key={i}
+                className="font-display text-warm-white leading-none inline-block"
+                style={{
+                  fontSize: `${sizeFactor}em`,
+                  textShadow: isCenter
+                    ? "0 0 28px rgba(245,166,35,0.4), 0 4px 16px rgba(0,0,0,0.85)"
+                    : "0 2px 8px rgba(0,0,0,0.7)",
+                }}
+                initial={{ opacity: 0, y: 32 }}
+                animate={{ opacity: targetOpacity, y: 0 }}
+                transition={{
+                  type: "spring" as const,
+                  stiffness: 240,
+                  damping: 22,
+                  delay: 0.15 + i * 0.042,
+                }}
+              >
+                {char}
+              </motion.span>
+            );
+          })}
         </h1>
-
-      </motion.div>
+      </div>
 
       {/* ── Statut ouvert / fermé ───────────────────────────────────── */}
-      <div className="flex-1 flex items-center justify-center px-6 py-4">
+      <div className="flex-1 flex items-center justify-center px-6 py-1">
         <AnimatePresence>
           {status && (
             <motion.div
@@ -293,7 +331,7 @@ function HeroMobile() {
 
         <Link
           href="/carte"
-          className="flex items-center justify-center w-full py-3.5 rounded-2xl border border-white/12 text-warm-white/65 font-body text-sm active:scale-[0.97] transition-all hover:border-gold/30 hover:text-warm-white"
+          className="flex items-center justify-center w-full py-3.5 rounded-2xl bg-white/[0.07] border border-white/[0.08] text-gold font-body font-semibold text-sm active:scale-[0.97] transition-all hover:bg-white/[0.12] hover:border-gold/25"
         >
           Voir la carte
         </Link>
