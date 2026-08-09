@@ -221,10 +221,11 @@ function HeroMobile() {
             const sizeFactor = 0.60 + (1 - dist) * 0.60;
             const targetOpacity = 0.40 + (1 - dist) * 0.60;
             const isCenter = dist < 0.35;
+            const isFactory = i >= 7;
             return (
               <motion.span
                 key={i}
-                className="font-display text-warm-white leading-none inline-block"
+                className={`font-display leading-none inline-block ${isFactory ? "text-gold" : "text-warm-white"}`}
                 style={{
                   fontSize: `${sizeFactor}em`,
                   textShadow: isCenter
