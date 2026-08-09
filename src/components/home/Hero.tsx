@@ -277,7 +277,7 @@ function HeroMobile() {
                 "font-display leading-none tracking-[0.12em]",
                 status.open ? "text-emerald-400" : "text-warm-white/25",
               ].join(" ")}
-                style={{ fontSize: "clamp(3.2rem, 14vw, 5rem)" }}
+                style={{ fontSize: "clamp(2rem, 10vw, 3.2rem)" }}
               >
                 {status.statusText}
               </p>
