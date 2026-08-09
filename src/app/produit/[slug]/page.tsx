@@ -72,7 +72,7 @@ export default async function ProduitPage({ params }: Props) {
 
         {/* Fil d'Ariane */}
         <nav
-          className="flex items-center gap-2 mb-10 text-xs text-warm-white/35 font-body"
+          className="flex items-center gap-2 mb-10 text-sm text-warm-white/50 font-body"
           aria-label="Fil d'Ariane"
         >
           <Link href="/" className="hover:text-warm-white transition-colors">

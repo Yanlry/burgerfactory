@@ -209,7 +209,7 @@ function HeroMobile() {
         <h1
           aria-label="Burger Factory"
           className="flex items-end justify-center w-full"
-          style={{ fontSize: "clamp(2.8rem, 15vw, 5.4rem)", marginTop: "0.18em", marginBottom: "0", position: "relative", top: "0.3em" }}
+          style={{ fontSize: "clamp(2.8rem, 15vw, 5.4rem)", marginBottom: "0,1em", position: "relative", top: "0.3em" }}
         >
           {"BURGER FACTORY".split("").map((char, i) => {
             if (char === " ") return (
@@ -331,7 +331,7 @@ function HeroMobile() {
 
         <Link
           href="/carte"
-          className="flex items-center justify-center w-full py-3.5 rounded-2xl bg-white/[0.07] border border-white/[0.08] text-gold font-body font-semibold text-sm active:scale-[0.97] transition-all hover:bg-white/[0.12] hover:border-gold/25"
+          className="flex items-center justify-center w-full py-3.5 rounded-2xl bg-white/[0.07] border border-white/[0.08] text-gold font-body font-semibold text-base active:scale-[0.97] transition-all hover:bg-white/[0.12] hover:border-gold/25"
         >
           Voir la carte
         </Link>
