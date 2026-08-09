@@ -23,9 +23,9 @@ export function CommanderButton({
   const [isOpen, setIsOpen] = useState(false);
 
   const sizeClasses = {
-    sm: "px-4 py-2 text-sm gap-2",
-    md: "px-6 py-3 text-sm gap-2",
-    lg: "px-8 py-4 text-base gap-3",
+    sm: "px-3 sm:px-4 py-2 text-sm gap-2",
+    md: "px-3 sm:px-6 py-3 text-sm gap-2",
+    lg: "px-4 sm:px-8 py-4 text-base gap-3",
   };
 
   const variantClasses = {
@@ -58,7 +58,7 @@ export function CommanderButton({
           size={size === "lg" ? 18 : 16}
           className="transition-transform duration-200 group-hover:-rotate-12"
         />
-        {label}
+        <span className="hidden sm:inline">{label}</span>
       </motion.button>
 
       <CommanderModal
