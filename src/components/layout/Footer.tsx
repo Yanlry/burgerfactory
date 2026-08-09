@@ -112,12 +112,6 @@ export function Footer() {
                   </span>
                 </a>
               </li>
-              <li className="flex items-start gap-3">
-                <Clock size={16} className="mt-0.5 flex-shrink-0 text-gold" />
-                <span className="font-body text-sm text-warm-white-2">
-                  Commandes par téléphone uniquement
-                </span>
-              </li>
             </ul>
 
             {/* Commander CTA */}

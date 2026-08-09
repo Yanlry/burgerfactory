@@ -77,7 +77,10 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               >
                 <Link
                   href={link.href}
-                  onClick={onClose}
+                  onClick={() => {
+                    onClose();
+                    if (link.href === "/") window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
                   className="block font-display text-[clamp(2.8rem,10vw,4.5rem)] text-warm-white/70 hover:text-gold transition-colors duration-200 leading-tight py-1"
                 >
                   {link.label}
@@ -100,9 +103,6 @@ export function MobileMenu({ isOpen, onClose }: MobileMenuProps) {
               <Phone size={20} />
               <span>{RESTAURANT_PHONE_DISPLAY}</span>
             </a>
-            <p className="font-body text-warm-white/30 text-xs mt-2">
-              Commandes par téléphone uniquement
-            </p>
           </motion.div>
         </motion.div>
       )}

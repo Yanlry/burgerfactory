@@ -132,9 +132,6 @@ export function NousTrouverView() {
                       Tous les soirs{" "}
                       <span className="text-gold font-semibold">18h – 22h</span>
                     </p>
-                    <p className="font-body text-[0.7rem] text-warm-white/30 mt-1">
-                      Commande uniquement par téléphone
-                    </p>
                   </div>
                 </div>
               </div>
@@ -292,7 +289,6 @@ export function NousTrouverView() {
                 </h3>
                 <p className="font-body text-warm-white-2 text-sm mt-5 max-w-[360px] leading-relaxed">
                   Tous les soirs de 18h à 22h, nos burgers arrivent directement chez vous.
-                  Commande uniquement par téléphone.
                 </p>
               </div>
 

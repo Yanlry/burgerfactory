@@ -40,6 +40,7 @@ export function Header() {
               href="/"
               aria-label="Burger Factory — Accueil"
               className="inline-flex flex-col hover:opacity-80 transition-opacity"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
             >
               <span className="font-display text-2xl md:text-3xl text-warm-white tracking-wider leading-none">
                 BURGER&nbsp;<span className="text-gold">FACTORY</span>
@@ -87,8 +88,9 @@ export function Header() {
 }
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
+  const handleClick = href === "/" ? () => window.scrollTo({ top: 0, behavior: "smooth" }) : undefined;
   return (
-    <Link
+    <Link onClick={handleClick}
       href={href}
       className="relative font-body text-sm text-warm-white/60 hover:text-warm-white transition-colors tracking-wide group"
     >

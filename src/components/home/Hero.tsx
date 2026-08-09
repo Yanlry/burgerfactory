@@ -6,8 +6,8 @@ import { useRef, useEffect, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap, ScrollTrigger } from "@/lib/animations/gsap";
 import { registerGSAP } from "@/lib/animations/gsap";
-import { Phone } from "lucide-react";
-import { RESTAURANT_PHONE } from "@/config/restaurant";
+import { Phone, Clock } from "lucide-react";
+import { RESTAURANT_PHONE, restaurantConfig } from "@/config/restaurant";
 import { AnimatePresence, motion } from "framer-motion";
 import { getProductById } from "@/data/products";
 import { formatPrice } from "@/lib/utils/formatPrice";
@@ -95,10 +95,62 @@ export function Hero() {
   );
 }
 
+// ─── Statut ouvert/fermé ─────────────────────────────────────────────────────
+function getOpenStatus(): { open: boolean; statusText: string; nextInfo: string; todaySchedule: string } {
+  const now = new Date();
+  const DAY = ["Dimanche","Lundi","Mardi","Mercredi","Jeudi","Vendredi","Samedi"];
+  const h   = now.getHours();
+  const cur = h < 5 ? 25 * 60 : h * 60 + now.getMinutes();
+
+  const toMin = (t: string) => {
+    const [hh, mm] = t.split(":").map(Number);
+    return hh === 0 ? 24 * 60 : hh * 60 + mm;
+  };
+  const fmt = (e: string) => (e === "00:00" ? "minuit" : e);
+
+  const dayIdx = now.getDay();
+  const day = restaurantConfig.openingHours.find(d => d.day === DAY[dayIdx]);
+
+  const todaySchedule = day
+    ? day.lunch ? `${day.lunch} · ${day.dinner}` : day.dinner
+    : "—";
+
+  if (!day) return { open: false, statusText: "FERMÉ", nextInfo: "Fermé aujourd'hui", todaySchedule };
+
+  if (day.lunch) {
+    const [s, e] = day.lunch.split("–");
+    if (cur < toMin(s)) return { open: false, statusText: "FERMÉ",  nextInfo: `Ouvre aujourd'hui à ${s}`, todaySchedule };
+    if (cur < toMin(e)) return { open: true,  statusText: "OUVERT", nextInfo: `Ferme à ${fmt(e)}`, todaySchedule };
+  }
+
+  const [ds, de] = day.dinner.split("–");
+  if (cur < toMin(ds)) return { open: false, statusText: "FERMÉ",  nextInfo: `Ouvre ce soir à ${ds}`, todaySchedule };
+  if (cur < toMin(de)) return { open: true,  statusText: "OUVERT", nextInfo: `Ferme à ${fmt(de)}`, todaySchedule };
+
+  for (let i = 1; i <= 7; i++) {
+    const next = restaurantConfig.openingHours.find(d => d.day === DAY[(dayIdx + i) % 7]);
+    if (!next) continue;
+    const label = i === 1 ? "demain" : DAY[(dayIdx + i) % 7].toLowerCase();
+    const opens = next.lunch ? next.lunch.split("–")[0] : next.dinner.split("–")[0];
+    return { open: false, statusText: "FERMÉ", nextInfo: `Ouvre ${label} à ${opens}`, todaySchedule };
+  }
+
+  return { open: false, statusText: "FERMÉ", nextInfo: "Fermé pour ce soir", todaySchedule };
+}
+
 // ════════════════════════════════════════════════════════════════════════════
 // VERSION MOBILE — lg:hidden
 // ════════════════════════════════════════════════════════════════════════════
 function HeroMobile() {
+  const [status, setStatus] = useState<{ open: boolean; statusText: string; nextInfo: string; todaySchedule: string } | null>(null);
+
+  useEffect(() => {
+    const tick = () => setStatus(getOpenStatus());
+    const initId  = window.setTimeout(tick, 0);
+    const intervalId = window.setInterval(tick, 60_000);
+    return () => { clearTimeout(initId); clearInterval(intervalId); };
+  }, []);
+
   return (
     <section
       className="lg:hidden relative min-h-[100svh] flex flex-col bg-black overflow-hidden pt-[72px]"
@@ -111,78 +163,125 @@ function HeroMobile() {
       </div>
 
       {/* ── Fan de burgers ────────────────────────────────────────────── */}
-      <div className="relative flex-1 flex items-center justify-center pb-2">
-        {/* Halo sous les burgers */}
+      <div className="relative flex justify-center pt-6 pb-2">
         <div
           aria-hidden
           className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[70vw] h-[25vw] rounded-full bg-gold/[0.12] blur-[48px] pointer-events-none"
         />
-
-        {/* Container du fan — largeur fixe, centré */}
         <div className="relative" style={{ width: 312, height: 195 }}>
           {MOBILE_FAN.map((b, i) => (
             <motion.div
               key={b.src}
               className="absolute"
-              style={{
-                left: b.left,
-                top: b.top,
-                width: b.size,
-                height: b.size,
-                zIndex: b.zIndex,
-                rotate: b.rotate,
-              }}
+              style={{ left: b.left, top: b.top, width: b.size, height: b.size, zIndex: b.zIndex, rotate: b.rotate }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15 + i * 0.12, ease: "easeOut" }}
             >
-              <Image
-                src={b.src}
-                alt={b.alt}
-                fill
-                sizes="175px"
-                className="object-contain"
-                style={{ filter: b.shadow }}
-                priority
-              />
+              <Image src={b.src} alt={b.alt} fill sizes="175px" className="object-contain" style={{ filter: b.shadow }} priority />
             </motion.div>
           ))}
         </div>
       </div>
 
-      {/* ── Contenu principal ─────────────────────────────────────────── */}
+      {/* ── Titre + indicateur ouvert/fermé ─────────────────────────── */}
       <motion.div
-        className="px-6 pb-10 pt-5 flex flex-col gap-5"
+        className="px-6 mt-8"
+        initial={{ opacity: 0, y: 14 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.55, delay: 0.45, ease: "easeOut" }}
+      >
+        <span className="font-body text-[0.58rem] text-gold tracking-[0.32em] uppercase">
+          Restaurant · Haubourdin
+        </span>
+        <h1
+          className="font-display text-warm-white leading-none mt-1 block"
+          style={{
+            fontSize: "clamp(2.6rem, 14.5vw, 5rem)",
+            transform: "scaleY(1.6)",
+            transformOrigin: "center center",
+            marginTop: "0.35em",
+            marginBottom: "0.35em",
+          }}
+        >
+          BURGER FACTORY
+        </h1>
+
+      </motion.div>
+
+      {/* ── Statut ouvert / fermé ───────────────────────────────────── */}
+      <div className="flex-1 flex items-center justify-center px-6 py-4">
+        <AnimatePresence>
+          {status && (
+            <motion.div
+              key={String(status.open)}
+              initial={{ opacity: 0, scale: 0.94 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className="w-full flex flex-col items-center gap-4"
+            >
+              {/* Dot pulsant */}
+              <div className="relative flex items-center justify-center">
+                {status.open && (
+                  <span className="absolute w-8 h-8 rounded-full bg-emerald-400/25 animate-ping" />
+                )}
+                <span className={[
+                  "w-4 h-4 rounded-full",
+                  status.open
+                    ? "bg-emerald-400 shadow-[0_0_18px_6px_rgba(52,211,153,0.55)]"
+                    : "bg-red-500/70 shadow-[0_0_12px_4px_rgba(239,68,68,0.3)]",
+                ].join(" ")} />
+              </div>
+
+              {/* Grand texte statut */}
+              <p className={[
+                "font-display leading-none tracking-[0.12em]",
+                status.open ? "text-emerald-400" : "text-warm-white/25",
+              ].join(" ")}
+                style={{ fontSize: "clamp(3.2rem, 14vw, 5rem)" }}
+              >
+                {status.statusText}
+              </p>
+
+              {/* Prochaine info */}
+              <div className="flex items-center gap-2">
+                <Clock size={13} className="text-gold/50 flex-shrink-0" />
+                <p className="font-body text-sm text-warm-white/55">
+                  {status.nextInfo}
+                </p>
+              </div>
+
+              {/* Horaire du jour */}
+              <div className="flex items-center gap-3 mt-1">
+                <div className="h-px flex-1 bg-white/[0.07]" />
+                <p className="font-body text-[0.62rem] text-warm-white/20 tracking-widest uppercase whitespace-nowrap">
+                  {status.todaySchedule}
+                </p>
+                <div className="h-px flex-1 bg-white/[0.07]" />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+
+      {/* ── Livraison + CTAs ────────────────────────────────────────── */}
+      <motion.div
+        className="px-6 pb-10 flex flex-col gap-4"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.55, delay: 0.55, ease: "easeOut" }}
+        transition={{ duration: 0.55, delay: 0.6, ease: "easeOut" }}
       >
-        {/* Identité */}
-        <div>
-          <span className="font-body text-[0.58rem] text-gold tracking-[0.32em] uppercase">
-            Restaurant · Haubourdin
-          </span>
-          <h1 className="font-display text-[1.9rem] text-warm-white leading-none mt-1">
-            BURGER FACTORY
-          </h1>
-        </div>
-
-        {/* Ligne dorée */}
         <div className="h-px bg-gradient-to-r from-gold/60 via-gold/20 to-transparent" />
 
-        {/* Livraison — le point fort sur mobile */}
-        <div className="flex items-end gap-4">
-          <div>
-            <p className="font-body text-[0.6rem] text-gold tracking-[0.28em] uppercase font-semibold mb-1">
-              Livraison disponible
-            </p>
-            <p className="font-display text-[3.2rem] text-warm-white leading-none">
-              18h – 22h
-            </p>
-          </div>
+        <div>
+          <p className="font-body text-[0.6rem] text-gold tracking-[0.28em] uppercase font-semibold mb-1">
+            Livraison disponible
+          </p>
+          <p className="font-display text-[3.2rem] text-warm-white leading-none">
+            18h – 22h
+          </p>
         </div>
 
-        {/* CTA téléphone — prioritaire sur mobile */}
         <a
           href={`tel:${RESTAURANT_PHONE}`}
           className="flex items-center justify-center gap-3 w-full bg-gold text-black font-body font-bold py-4 rounded-2xl text-[0.95rem] active:scale-[0.97] transition-transform shadow-[0_0_28px_rgba(245,166,35,0.4)]"
@@ -192,7 +291,6 @@ function HeroMobile() {
           Appeler — 09 85 05 78 03
         </a>
 
-        {/* CTA carte — secondaire */}
         <Link
           href="/carte"
           className="flex items-center justify-center w-full py-3.5 rounded-2xl border border-white/12 text-warm-white/65 font-body text-sm active:scale-[0.97] transition-all hover:border-gold/30 hover:text-warm-white"

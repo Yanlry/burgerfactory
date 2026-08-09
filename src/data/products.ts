@@ -51,6 +51,7 @@ export const products: Product[] = [
     price: 6.5,
     menuPrice: 8.5,
     image: "/products/04-bacon.png",
+    featured: true,
   },
   {
     id: 5,
@@ -61,6 +62,7 @@ export const products: Product[] = [
     price: 6.5,
     menuPrice: 8.5,
     image: "/products/05-chevre-miel.png",
+    featured: true,
   },
   {
     id: 6,
@@ -71,6 +73,7 @@ export const products: Product[] = [
     price: 6.5,
     menuPrice: 8.5,
     image: "/products/06-raclette.png",
+    featured: true,
   },
   {
     id: 7,
@@ -118,6 +121,7 @@ export const products: Product[] = [
     price: 6.5,
     menuPrice: 9.5,
     image: "/products/10-chicken-beef.png",
+    featured: true,
   },
 
   // ─── WRAPS (IDs 11–13) ───────────────────────────────────────────────────

@@ -81,7 +81,7 @@ export function FeaturedProducts() {
     <section
       ref={containerRef}
       id="produits"
-      className="bg-dark"
+      className="bg-dark overflow-hidden"
       aria-label="Nos produits phares"
     >
       {/* Section header */}
@@ -90,7 +90,7 @@ export function FeaturedProducts() {
           Nos spécialités
         </span>
         <h2 className="font-display text-[clamp(3rem,8vw,6.5rem)] text-warm-white leading-none mt-2">
-          PRODUITS PHARES
+          TOP {featured.length} INCONTOURNABLES
         </h2>
       </div>
 
@@ -109,7 +109,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
   const num    = String(product.id).padStart(2, "0");
 
   return (
-    <article className="fp-card relative max-w-7xl mx-auto section-px">
+    <article className="fp-card relative max-w-7xl mx-auto section-px overflow-hidden">
       {/* Gold separator */}
       <div
         className="fp-line h-px w-full bg-gradient-to-r from-gold/40 via-gold/15 to-transparent mb-0"
@@ -135,7 +135,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
             style={{
               opacity: 0,
               top: "50%",
-              [isEven ? "left" : "right"]: "-0.05em",
+              [isEven ? "left" : "right"]: "0",
               transform: "translateY(-55%)",
               zIndex: 0,
             }}
