@@ -257,7 +257,7 @@ function HeroMobile() {
               initial={{ opacity: 0, scale: 0.94 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="w-full flex flex-col items-center gap-4"
+              className="w-full flex flex-col items-center gap-2"
             >
               {/* Dot pulsant */}
               <div className="relative flex items-center justify-center">
@@ -305,34 +305,36 @@ function HeroMobile() {
 
       {/* ── Livraison + CTAs ────────────────────────────────────────── */}
       <motion.div
-        className="px-6 pb-10 flex flex-col gap-4"
+        className="px-6 pb-6 flex flex-col gap-3"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, delay: 0.6, ease: "easeOut" }}
       >
         <div className="h-px bg-gradient-to-r from-gold/60 via-gold/20 to-transparent" />
 
-        <div>
-          <p className="font-body text-[0.6rem] text-gold tracking-[0.28em] uppercase font-semibold mb-1">
-            Livraison disponible
-          </p>
-          <p className="font-display text-[3.2rem] text-warm-white leading-none">
-            18h – 22h
-          </p>
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="font-body text-[0.58rem] text-gold tracking-[0.28em] uppercase font-semibold mb-0.5">
+              Livraison disponible
+            </p>
+            <p className="font-display text-[2rem] text-warm-white leading-none">
+              18h – 22h
+            </p>
+          </div>
         </div>
 
         <a
           href={`tel:${RESTAURANT_PHONE}`}
-          className="flex items-center justify-center gap-3 w-full bg-gold text-black font-body font-bold py-4 rounded-2xl text-[0.95rem] active:scale-[0.97] transition-transform shadow-[0_0_28px_rgba(245,166,35,0.4)]"
+          className="flex items-center justify-center gap-3 w-full bg-gold text-black font-body font-bold py-3 rounded-2xl text-[0.9rem] active:scale-[0.97] transition-transform shadow-[0_0_28px_rgba(245,166,35,0.4)]"
           aria-label="Appeler Burger Factory au 09 85 05 78 03"
         >
-          <Phone size={17} />
+          <Phone size={16} />
           Appeler — 09 85 05 78 03
         </a>
 
         <Link
           href="/carte"
-          className="flex items-center justify-center w-full py-3.5 rounded-2xl bg-white/[0.07] border border-white/[0.08] text-gold font-body font-semibold text-base active:scale-[0.97] transition-all hover:bg-white/[0.12] hover:border-gold/25"
+          className="flex items-center justify-center w-full py-3 rounded-2xl bg-white/[0.07] border border-white/[0.08] text-gold font-body font-semibold text-sm active:scale-[0.97] transition-all hover:bg-white/[0.12] hover:border-gold/25"
         >
           Voir la carte
         </Link>
