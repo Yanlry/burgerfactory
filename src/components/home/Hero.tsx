@@ -171,7 +171,7 @@ function HeroMobile() {
       >
         <div className="h-px flex-1 bg-gradient-to-r from-transparent to-gold/40" />
         <span className="font-body text-[0.6rem] text-gold/70 tracking-[0.38em] uppercase whitespace-nowrap">
-          Restaurant · Haubourdin
+          Haubourdin
         </span>
         <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gold/40" />
       </motion.div>
@@ -287,10 +287,7 @@ function HeroMobile() {
               </div>
 
               {/* Grand texte statut */}
-              <p className={[
-                "font-display leading-none tracking-[0.12em]",
-                status.open ? "text-emerald-400" : "text-warm-white/25",
-              ].join(" ")}
+              <p className="font-display leading-none tracking-[0.12em] text-warm-white"
                 style={{ fontSize: "clamp(2rem, 10vw, 3.2rem)" }}
               >
                 {status.statusText}

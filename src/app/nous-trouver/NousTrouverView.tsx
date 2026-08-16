@@ -45,7 +45,7 @@ export function NousTrouverView() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            Restaurant · Haubourdin
+            Haubourdin
           </motion.span>
           <motion.h1
             className="font-display text-[clamp(3.2rem,10vw,7.5rem)] text-warm-white leading-none"
