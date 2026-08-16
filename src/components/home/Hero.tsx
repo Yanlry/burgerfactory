@@ -18,7 +18,7 @@ const FAN = [
   {
     src: "/products/04-bacon.png",
     alt: "Bacon",
-    x: 0, y: 65, size: 280, rotation: -11,
+    x: 0, y: 78, size: 336, rotation: -11,
     shadow: "drop-shadow(0 22px 52px rgba(0,0,0,0.9))",
     productId: 4,
     tooltipAlign: "left" as const,
@@ -26,7 +26,7 @@ const FAN = [
   {
     src: "/products/03-giant-factory.png",
     alt: "Giant Factory",
-    x: 100, y: 38, size: 295, rotation: -5,
+    x: 120, y: 46, size: 354, rotation: -5,
     shadow: "drop-shadow(0 24px 54px rgba(0,0,0,0.85))",
     productId: 3,
     tooltipAlign: "center" as const,
@@ -34,7 +34,7 @@ const FAN = [
   {
     src: "/products/02-mega-factory.png",
     alt: "Méga Factory",
-    x: 195, y: 16, size: 310, rotation: -1,
+    x: 234, y: 19, size: 372, rotation: -1,
     shadow: "drop-shadow(0 26px 56px rgba(0,0,0,0.8))",
     productId: 2,
     tooltipAlign: "center" as const,
@@ -42,14 +42,14 @@ const FAN = [
   {
     src: "/products/01-triple-beef.png",
     alt: "Triple Beef",
-    x: 280, y: 0, size: 325, rotation: 5,
+    x: 336, y: 0, size: 390, rotation: 5,
     shadow: "drop-shadow(0 26px 58px rgba(245,166,35,0.28)) drop-shadow(0 18px 48px rgba(0,0,0,0.82))",
     productId: 1,
     tooltipAlign: "right" as const,
   },
 ];
-const FAN_W = 610;
-const FAN_H  = 360;
+const FAN_W = 732;
+const FAN_H  = 432;
 
 // ─── Fan mobile (3 burgers compacts, positions px calibrées 375px) ───────────
 const MOBILE_FAN = [
@@ -550,7 +550,7 @@ function HeroDesktop() {
           </div>
 
           {/* Fan */}
-          <div className="flex-1 flex items-center justify-center lg:justify-end relative order-first lg:order-last">
+          <div className="flex-1 flex items-center justify-center lg:justify-end relative order-first lg:order-last lg:translate-x-16">
             <div ref={glowRef} aria-hidden className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="w-[80%] h-[80%] rounded-full bg-gold/[0.07] blur-[90px]" />
             </div>
@@ -580,7 +580,7 @@ function HeroDesktop() {
                         src={burger.src}
                         alt={burger.alt}
                         fill
-                        sizes="265px"
+                        sizes="390px"
                         className="object-contain"
                         style={{ filter: burger.shadow }}
                       />
