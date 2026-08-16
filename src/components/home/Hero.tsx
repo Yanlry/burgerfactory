@@ -164,7 +164,7 @@ function HeroMobile() {
 
       {/* ── Label restaurant ────────────────────────────────────────── */}
       <motion.div
-        className="flex items-center gap-3 px-8 pt-6"
+        className="flex items-center gap-3 px-8 pt-3"
         initial={{ opacity: 0, y: 6 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
@@ -177,9 +177,9 @@ function HeroMobile() {
       </motion.div>
 
       {/* ── Fan de burgers + Titre superposé ─────────────────────────── */}
-      <div className="w-full pt-4 pb-2">
+      <div className="w-full pt-2 pb-0">
         {/* Burger container pleine largeur + titre en overlay */}
-        <div className="relative w-full" style={{ height: "62.5vw" }}>
+        <div className="relative w-full" style={{ height: "58vw" }}>
           {/* Glow sol */}
           <div
             aria-hidden
@@ -263,7 +263,7 @@ function HeroMobile() {
       </div>
 
       {/* ── Statut ouvert / fermé ───────────────────────────────────── */}
-      <div className="flex-1 flex items-center justify-center px-6 py-1">
+      <div className="flex-1 flex items-center justify-center px-6 py-0">
         <AnimatePresence>
           {status && (
             <motion.div
@@ -271,7 +271,7 @@ function HeroMobile() {
               initial={{ opacity: 0, scale: 0.94 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, ease: "easeOut" }}
-              className="w-full flex flex-col items-center gap-2"
+              className="w-full flex flex-col items-center gap-1.5"
             >
               {/* Dot pulsant */}
               <div className="relative flex items-center justify-center">
@@ -319,7 +319,7 @@ function HeroMobile() {
 
       {/* ── Livraison + CTAs ────────────────────────────────────────── */}
       <motion.div
-        className="px-6 pb-6 flex flex-col gap-3"
+        className="px-6 pb-4 flex flex-col gap-2"
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.55, delay: 0.6, ease: "easeOut" }}
@@ -331,7 +331,7 @@ function HeroMobile() {
             <p className="font-body text-[0.58rem] text-gold tracking-[0.28em] uppercase font-semibold mb-0.5">
               Livraison disponible  7/7
             </p>
-            <p className="font-display text-[2rem] text-warm-white leading-none">
+            <p className="font-display text-[1.5rem] text-warm-white leading-none">
               18h – 22h
             </p>
           </div>
@@ -339,7 +339,7 @@ function HeroMobile() {
 
         <a
           href={`tel:${RESTAURANT_PHONE}`}
-          className="flex items-center justify-center gap-3 w-full bg-gold text-black font-body font-bold py-3 rounded-2xl text-[0.9rem] active:scale-[0.97] transition-transform shadow-[0_0_28px_rgba(245,166,35,0.4)]"
+          className="flex items-center justify-center gap-3 w-full bg-gold text-black font-body font-bold py-2.5 rounded-2xl text-[0.9rem] active:scale-[0.97] transition-transform shadow-[0_0_28px_rgba(245,166,35,0.4)]"
           aria-label="Appeler Burger Factory au 09 85 05 78 03"
         >
           <Phone size={16} />
@@ -348,7 +348,7 @@ function HeroMobile() {
 
         <Link
           href="/carte"
-          className="flex items-center justify-center w-full py-3 rounded-2xl bg-white/[0.07] border border-white/[0.08] text-gold font-body font-semibold text-sm active:scale-[0.97] transition-all hover:bg-white/[0.12] hover:border-gold/25"
+          className="flex items-center justify-center w-full py-2.5 rounded-2xl bg-white/[0.07] border border-white/[0.08] text-gold font-body font-semibold text-sm active:scale-[0.97] transition-all hover:bg-white/[0.12] hover:border-gold/25"
         >
           Voir la carte
         </Link>
