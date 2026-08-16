@@ -61,7 +61,7 @@ export function MenusShowcase() {
             ref={titleRef}
             className="font-display text-[clamp(3rem,8vw,6.5rem)] text-warm-white leading-none"
           >
-            LES MENUS
+            LES MENUS DOUBLES
           </h2>
           <p className="font-body text-warm-white-2 text-sm mt-4 max-w-md leading-relaxed">
             Chaque menu comprend frites et boisson. Parfait pour partager ou s&apos;accorder une vraie pause.

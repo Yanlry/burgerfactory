@@ -162,78 +162,104 @@ function HeroMobile() {
         <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-gold/20 to-transparent" />
       </div>
 
-      {/* ── Fan de burgers ────────────────────────────────────────────── */}
-      <div className="relative flex justify-center pt-6 pb-2">
-        <div
-          aria-hidden
-          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[70vw] h-[25vw] rounded-full bg-gold/[0.12] blur-[48px] pointer-events-none"
-        />
-        <div className="relative" style={{ width: 312, height: 195 }}>
+      {/* ── Label restaurant ────────────────────────────────────────── */}
+      <motion.div
+        className="flex items-center gap-3 px-8 pt-6"
+        initial={{ opacity: 0, y: 6 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+      >
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent to-gold/40" />
+        <span className="font-body text-[0.6rem] text-gold/70 tracking-[0.38em] uppercase whitespace-nowrap">
+          Restaurant · Haubourdin
+        </span>
+        <div className="h-px flex-1 bg-gradient-to-l from-transparent to-gold/40" />
+      </motion.div>
+
+      {/* ── Fan de burgers + Titre superposé ─────────────────────────── */}
+      <div className="w-full pt-4 pb-2">
+        {/* Burger container pleine largeur + titre en overlay */}
+        <div className="relative w-full" style={{ height: "62.5vw" }}>
+          {/* Glow sol */}
+          <div
+            aria-hidden
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[70vw] h-[18vw] rounded-full bg-gold/[0.14] blur-[40px] pointer-events-none z-0"
+          />
+
+          {/* Burgers pleine largeur */}
           {MOBILE_FAN.map((b, i) => (
             <motion.div
               key={b.src}
               className="absolute"
-              style={{ left: b.left, top: b.top, width: b.size, height: b.size, zIndex: b.zIndex, rotate: b.rotate }}
+              style={{
+                left: `${(b.left / 312 * 100).toFixed(2)}%`,
+                top: `${(b.top / 195 * 100).toFixed(2)}%`,
+                width: `${(b.size / 312 * 100).toFixed(2)}vw`,
+                height: `${(b.size / 312 * 100).toFixed(2)}vw`,
+                zIndex: b.zIndex,
+                rotate: b.rotate,
+              }}
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15 + i * 0.12, ease: "easeOut" }}
             >
-              <Image src={b.src} alt={b.alt} fill sizes="175px" className="object-contain" style={{ filter: b.shadow }} priority />
+              <Image src={b.src} alt={b.alt} fill sizes="56vw" className="object-contain" style={{ filter: b.shadow }} priority />
             </motion.div>
           ))}
-        </div>
-      </div>
 
-      {/* ── Titre + indicateur ouvert/fermé ─────────────────────────── */}
-      <div className="px-6 mt-8 flex flex-col items-center text-center">
-        <motion.span
-          className="font-body text-[0.58rem] text-gold tracking-[0.32em] uppercase"
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.25, ease: "easeOut" as const }}
-        >
-          Restaurant · Haubourdin
-        </motion.span>
-        <h1
-          aria-label="Burger Factory"
-          className="flex items-end justify-center w-full"
-          style={{ fontSize: "clamp(2.8rem, 15vw, 5.4rem)", marginBottom: "0,1em", position: "relative", top: "0.3em" }}
-        >
-          {"BURGER FACTORY".split("").map((char, i) => {
-            if (char === " ") return (
-              <span key={i} style={{ display: "inline-block", width: "0.26em" }} />
-            );
-            const total = 14;
-            const center = (total - 1) / 2;
-            const dist = Math.abs(i - center) / center;
-            const sizeFactor = 0.60 + (1 - dist) * 0.60;
-            const targetOpacity = 0.40 + (1 - dist) * 0.60;
-            const isCenter = dist < 0.35;
-            const isFactory = i >= 7;
-            return (
-              <motion.span
-                key={i}
-                className={`font-display leading-none inline-block ${isFactory ? "text-gold" : "text-warm-white"}`}
-                style={{
-                  fontSize: `${sizeFactor}em`,
-                  textShadow: isCenter
-                    ? "0 0 28px rgba(245,166,35,0.4), 0 4px 16px rgba(0,0,0,0.85)"
-                    : "0 2px 8px rgba(0,0,0,0.7)",
-                }}
-                initial={{ opacity: 0, y: 32 }}
-                animate={{ opacity: targetOpacity, y: 0 }}
-                transition={{
-                  type: "spring" as const,
-                  stiffness: 240,
-                  damping: 22,
-                  delay: 0.15 + i * 0.042,
-                }}
-              >
-                {char}
-              </motion.span>
-            );
-          })}
-        </h1>
+          {/* Titre en overlay centré sur la zone burger */}
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
+            {/* Halo sombre derrière le texte */}
+            <div
+              aria-hidden
+              className="absolute w-[88vw] rounded-full pointer-events-none"
+              style={{
+                height: "42vw",
+                background: "radial-gradient(ellipse at 50% 50%, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)",
+                filter: "blur(8px)",
+              }}
+            />
+            <h1
+              aria-label="Burger Factory"
+              className="relative flex flex-col items-center leading-none w-full px-4 overflow-hidden"
+            >
+              <div className="flex justify-center">
+                {"BURGER".split("").map((char, i) => (
+                  <motion.span
+                    key={`b-${i}`}
+                    className="font-display leading-none inline-block text-warm-white"
+                    style={{
+                      fontSize: "clamp(3.4rem, 19vw, 7rem)",
+                      textShadow: "0 0 24px rgba(0,0,0,1), 0 0 8px rgba(0,0,0,1), 0 2px 0 rgba(0,0,0,1), 0 0 40px rgba(0,0,0,0.9)",
+                    }}
+                    initial={{ opacity: 0, y: 32 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ type: "spring" as const, stiffness: 240, damping: 22, delay: 0.12 + i * 0.055 }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </div>
+              <div className="flex justify-center">
+                {"FACTORY".split("").map((char, i) => (
+                  <motion.span
+                    key={`f-${i}`}
+                    className="font-display leading-none inline-block text-gold"
+                    style={{
+                      fontSize: "clamp(3.4rem, 19vw, 7rem)",
+                      textShadow: "0 0 24px rgba(0,0,0,1), 0 0 8px rgba(0,0,0,1), 0 2px 0 rgba(0,0,0,1), 0 0 50px rgba(245,166,35,0.8), 0 0 20px rgba(245,166,35,0.5)",
+                    }}
+                    initial={{ opacity: 0, y: 32 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ type: "spring" as const, stiffness: 240, damping: 22, delay: 0.45 + i * 0.055 }}
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </div>
+            </h1>
+          </div>
+        </div>
       </div>
 
       {/* ── Statut ouvert / fermé ───────────────────────────────────── */}
@@ -303,7 +329,7 @@ function HeroMobile() {
         <div className="flex items-center justify-between">
           <div>
             <p className="font-body text-[0.58rem] text-gold tracking-[0.28em] uppercase font-semibold mb-0.5">
-              Livraison disponible
+              Livraison disponible  7/7
             </p>
             <p className="font-display text-[2rem] text-warm-white leading-none">
               18h – 22h
@@ -497,7 +523,7 @@ function HeroDesktop() {
 
             <div ref={subtitleRef} className="flex items-center gap-5 mb-10">
               <div>
-                <div className="font-body text-xs text-gold tracking-[0.25em] uppercase font-semibold mb-1">Livraison</div>
+                <div className="font-body text-xs text-gold tracking-[0.25em] uppercase font-semibold mb-1">Livraison 7/7</div>
                 <div className="font-display text-[clamp(1.6rem,3.2vw,2.1rem)] text-warm-white leading-none">18h – 22h</div>
               </div>
               <div className="w-px h-10 bg-white/10 flex-shrink-0" />
