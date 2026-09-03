@@ -26,6 +26,39 @@ export function PriceDisplay({
     lg: "text-sm",
   }[size];
 
+  if (product.sizes && product.sizes.length > 0) {
+    const minPrice = Math.min(...product.sizes.map((s) => s.price));
+
+    return (
+      <div className={`flex flex-col gap-2 ${className}`}>
+        <span className={`font-display text-gold tracking-wide ${priceSize}`}>
+          À partir de {formatPrice(minPrice)}
+        </span>
+
+        {showMenu && (
+          <ul className="flex flex-col gap-1">
+            {product.sizes.map((s) => (
+              <li
+                key={s.label}
+                className={`flex items-center justify-between gap-4 font-body text-warm-white-2 ${labelSize}`}
+              >
+                <span>
+                  <span className="text-warm-white font-medium">{s.label}</span>
+                  {s.meatCount && (
+                    <span className="text-warm-white/40 ml-2">
+                      {s.meatCount} viande{s.meatCount > 1 ? "s" : ""}
+                    </span>
+                  )}
+                </span>
+                <span className="text-warm-white">{formatPrice(s.price)}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className={`flex flex-col gap-1 ${className}`}>
       {product.price !== null && (

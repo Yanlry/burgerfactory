@@ -193,7 +193,7 @@ function HeroMobile() {
               className="absolute"
               style={{
                 left: `${(b.left / 312 * 100).toFixed(2)}%`,
-                top: `${(b.top / 195 * 100).toFixed(2)}%`,
+                top: `${(b.top / 195 * 100 + 55).toFixed(2)}%`,
                 width: `${(b.size / 312 * 100).toFixed(2)}vw`,
                 height: `${(b.size / 312 * 100).toFixed(2)}vw`,
                 zIndex: b.zIndex,

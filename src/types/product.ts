@@ -7,7 +7,17 @@ export type ProductCategory =
   | "paninis"
   | "desserts"
   | "boissons"
-  | "menu-enfant";
+  | "menu-enfant"
+  | "tacos"
+  | "frites";
+
+/** Une taille disponible pour un produit à formats multiples (tacos, bowl, frites) */
+export interface ProductSize {
+  label: string;
+  price: number;
+  /** Nombre de viandes incluses pour ce format (tacos/bowl) */
+  meatCount?: number;
+}
 
 export interface Product {
   id: number;
@@ -25,6 +35,8 @@ export interface Product {
   featured?: boolean;
   /** IDs des produits composant un menu M1–M6 */
   composedOf?: number[];
+  /** Formats disponibles avec prix dédié (tacos S–XXL, bowl M/L, frites petite/grande) */
+  sizes?: ProductSize[];
 }
 
 export interface MenuProduct extends Product {
@@ -45,15 +57,19 @@ export const CATEGORY_LABELS: Record<ProductCategory, string> = {
   desserts: "Desserts",
   boissons: "Boissons",
   "menu-enfant": "Menu Enfant",
+  tacos: "Tacos",
+  frites: "Frites",
 };
 
 export const CATEGORY_ORDER: ProductCategory[] = [
   "burgers",
   "wraps",
+  "tacos",
   "menus",
   "chicken",
   "snacks",
   "paninis",
+  "frites",
   "desserts",
   "boissons",
   "menu-enfant",

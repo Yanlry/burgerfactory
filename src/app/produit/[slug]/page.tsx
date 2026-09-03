@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ZoomIn } from "lucide-react";
 import {
   products,
   getProductBySlug,
@@ -10,10 +10,12 @@ import {
 import { CATEGORY_LABELS } from "@/types/product";
 import { formatPrice } from "@/lib/utils/formatPrice";
 import { ImageWithFallback } from "@/components/common/ImageWithFallback";
+import { ImageLightbox } from "@/components/common/ImageLightbox";
 import { PriceDisplay } from "@/components/common/PriceDisplay";
 import { CommanderButton } from "@/components/common/CommanderButton";
 import { SimilarProducts } from "@/components/products/SimilarProducts";
 import { ProductNavigation } from "@/components/products/ProductNavigation";
+import { tacosBoards } from "@/data/tacosOptions";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -169,6 +171,51 @@ export default async function ProduitPage({ params }: Props) {
             </Link>
           </div>
         </div>
+
+        {/* Composez votre tacos/bowl — viandes, sauces, extras */}
+        {product.category === "tacos" && (
+          <div className="mt-16 pt-8 border-t border-white/8">
+            <span className="font-body text-[0.65rem] text-gold tracking-[0.35em] uppercase block mb-2">
+              Composez votre {product.name.toLowerCase()}
+            </span>
+            <h2 className="font-display text-2xl md:text-3xl text-warm-white leading-none mb-8">
+              VIANDES, SAUCES &amp; EXTRAS
+            </h2>
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+              {tacosBoards.map((board) => (
+                <ImageLightbox
+                  key={board.key}
+                  src={board.image}
+                  alt={board.title}
+                  fallbackLabel={board.title}
+                  className="bg-anthracite-2 rounded-2xl overflow-hidden border border-white/[0.06] hover:border-gold/25 transition-colors duration-200"
+                >
+                  <div className="relative w-full aspect-[3/2] bg-black/30">
+                    <ImageWithFallback
+                      src={board.image}
+                      alt={board.title}
+                      fallbackLabel={board.title}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 33vw"
+                      className="object-cover"
+                    />
+                    <div className="absolute top-3 right-3 p-1.5 rounded-full bg-black/50 text-warm-white/80">
+                      <ZoomIn size={14} />
+                    </div>
+                  </div>
+                  <div className="p-4 flex items-center justify-between">
+                    <h3 className="font-display text-lg text-warm-white leading-none">
+                      {board.title.toUpperCase()}
+                    </h3>
+                    <span className="font-body text-xs text-warm-white/40">
+                      {board.note}
+                    </span>
+                  </div>
+                </ImageLightbox>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Produits similaires */}
         {similar.length > 0 && <SimilarProducts products={similar} />}

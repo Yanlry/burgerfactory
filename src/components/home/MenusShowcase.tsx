@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Link from "next/link";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "@/lib/animations/gsap";
 import { registerGSAP } from "@/lib/animations/gsap";
@@ -97,10 +98,14 @@ function MenuCard({ menu, mobile }: { menu: Product; mobile?: boolean }) {
   const hasMenuPrice = menu.menuPrice != null;
 
   return (
+    <Link
+      href="/carte?main=sale&sub=menus"
+      className={mobile ? "snap-start flex-shrink-0 w-[280px] block" : "w-full block"}
+    >
     <article
       className={[
         "menu-card",
-        mobile ? "snap-start flex-shrink-0 w-[280px]" : "w-full",
+        "w-full",
         "bg-anthracite-2 rounded-2xl overflow-hidden",
         "border border-white/[0.06] hover:border-gold/25",
         "transition-all duration-300 hover:-translate-y-1 hover:shadow-card",
@@ -153,14 +158,17 @@ function MenuCard({ menu, mobile }: { menu: Product; mobile?: boolean }) {
               {formatPrice(menu.menuPrice!)}
             </span>
           )}
-          <CommanderButton
-            productName={menu.name}
-            variant="outline"
-            size="sm"
-            label="Commander"
-          />
+          <div onClick={(e) => e.stopPropagation()}>
+            <CommanderButton
+              productName={menu.name}
+              variant="outline"
+              size="sm"
+              label="Commander"
+            />
+          </div>
         </div>
       </div>
     </article>
+    </Link>
   );
 }

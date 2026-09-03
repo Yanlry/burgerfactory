@@ -444,6 +444,78 @@ export const products: Product[] = [
     menuPrice: 6,
     image: "/products/39-menu-enfant.png",
   },
+
+  // ─── TACOS & BOWL (IDs 40–41, 45) ────────────────────────────────────────
+  // Composez votre tacos/bowl : viande(s) + sauce(s) au choix, garni de frites et sauce fromagère.
+  {
+    id: 40,
+    slug: "tacos",
+    name: "Tacos",
+    category: "tacos",
+    description: "Tacos garni de frites et sauce fromagère — 1 à 4 viandes au choix parmi 10, sauce au choix parmi 15",
+    price: 5.5,
+    image: "/products/40-tacos.png",
+    sizes: [
+      { label: "S", price: 5.5, meatCount: 1 },
+      { label: "M", price: 7, meatCount: 1 },
+      { label: "L", price: 8, meatCount: 2 },
+      { label: "XL", price: 10.5, meatCount: 3 },
+      { label: "XXL", price: 14, meatCount: 4 },
+    ],
+  },
+  {
+    id: 41,
+    slug: "tacos-gratine",
+    name: "Tacos Gratiné",
+    category: "tacos",
+    description: "Votre tacos gratiné au four, mozzarella fondue sur le dessus — 1 à 4 viandes au choix parmi 10, sauce au choix parmi 15",
+    price: 8,
+    image: "/products/41-tacos-gratine.png",
+    sizes: [
+      { label: "S", price: 8, meatCount: 1 },
+      { label: "M", price: 9.5, meatCount: 1 },
+      { label: "L", price: 10.5, meatCount: 2 },
+      { label: "XL", price: 13, meatCount: 3 },
+      { label: "XXL", price: 16.5, meatCount: 4 },
+    ],
+  },
+  {
+    id: 45,
+    slug: "bowl",
+    name: "Bowl",
+    category: "tacos",
+    description: "Bowl garni de frites et sauce fromagère — 1 ou 2 viandes au choix parmi 10, sauce au choix parmi 15",
+    price: 7.9,
+    image: "/products/45-bowl.png",
+    sizes: [
+      { label: "M", price: 7.9, meatCount: 1 },
+      { label: "L", price: 9.9, meatCount: 2 },
+    ],
+  },
+
+  // ─── FRITES (IDs 46–47) ───────────────────────────────────────────────────
+  {
+    id: 46,
+    slug: "cheesy-fries",
+    name: "Cheesy Fries",
+    category: "frites",
+    description: "Frites nappées de sauce fromagère et morceaux croustillants",
+    price: 4,
+    image: "/products/46-cheesy-fries.png",
+  },
+  {
+    id: 47,
+    slug: "frites",
+    name: "Frites",
+    category: "frites",
+    description: "Frites maison",
+    price: 2.5,
+    image: "/products/47-frites.png",
+    sizes: [
+      { label: "Petite", price: 2.5 },
+      { label: "Grande", price: 4 },
+    ],
+  },
 ];
 
 // ─── Helpers ────────────────────────────────────────────────────────────────

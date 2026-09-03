@@ -3,6 +3,7 @@ import { Hero } from "@/components/home/Hero";
 import { FeaturedProducts } from "@/components/home/FeaturedProducts";
 import { MenusShowcase } from "@/components/home/MenusShowcase";
 import { ChickenBucket } from "@/components/home/ChickenBucket";
+import { TacosSection } from "@/components/home/TacosSection";
 import { PaniniSection } from "@/components/home/PaniniSection";
 import { DessertsSection } from "@/components/home/DessertsSection";
 import { DrinksSection } from "@/components/home/DrinksSection";
@@ -28,6 +29,7 @@ export default function HomePage() {
       <FeaturedProducts />
       <MenusShowcase />
       <ChickenBucket />
+      <TacosSection />
       <PaniniSection />
       <DessertsSection />
       <DrinksSection />

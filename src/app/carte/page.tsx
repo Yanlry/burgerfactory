@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { CarteView } from "./CarteView";
 
 export const metadata: Metadata = {
@@ -29,7 +30,9 @@ export default function CartePage() {
           <div className="h-px bg-gradient-to-r from-gold/60 via-gold/20 to-transparent mt-4" />
         </header>
 
-        <CarteView />
+        <Suspense fallback={null}>
+          <CarteView />
+        </Suspense>
       </div>
     </main>
   );
