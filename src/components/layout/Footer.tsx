@@ -127,10 +127,26 @@ export function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-white/[0.06] px-6 lg:px-12 py-5 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div className="border-t border-white/[0.06] px-6 lg:px-12 py-5 max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
         <p className="font-body text-xs text-warm-white/25">
           © {new Date().getFullYear()} {name}. Tous droits réservés.
         </p>
+        <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+          {[
+            { href: "/mentions-legales", label: "Mentions légales" },
+            { href: "/confidentialite", label: "Confidentialité" },
+            { href: "/cookies", label: "Cookies" },
+          ].map((link) => (
+            <li key={link.href}>
+              <Link
+                href={link.href}
+                className="font-body text-xs text-warm-white/40 hover:text-warm-white transition-colors"
+              >
+                {link.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
         <p className="font-body text-xs text-warm-white/20">
           58 Rue Sadi Carnot, 59320 Haubourdin
         </p>

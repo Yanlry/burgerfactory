@@ -32,7 +32,7 @@ export function NousTrouverView() {
           src="/products/00-mon-commerce.png"
           alt="Devanture du Burger Factory à Haubourdin"
           fill
-          priority
+          preload
           className="object-cover object-center"
           sizes="100vw"
         />

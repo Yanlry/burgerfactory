@@ -203,7 +203,7 @@ function HeroMobile() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15 + i * 0.12, ease: "easeOut" }}
             >
-              <Image src={b.src} alt={b.alt} fill sizes="56vw" className="object-contain" style={{ filter: b.shadow }} priority />
+              <Image src={b.src} alt={b.alt} fill sizes="56vw" className="object-contain" style={{ filter: b.shadow }} preload />
             </motion.div>
           ))}
 
@@ -573,7 +573,7 @@ function HeroDesktop() {
                     onMouseLeave={() => setHoveredIndex(null)}
                   >
                     <div
-                      className="w-full h-full transition-transform duration-300 ease-out will-change-transform"
+                      className="relative w-full h-full transition-transform duration-300 ease-out will-change-transform"
                       style={{ transform: isHovered ? "translateY(-18px)" : "translateY(0px)" }}
                     >
                       <Image
@@ -583,6 +583,7 @@ function HeroDesktop() {
                         sizes="390px"
                         className="object-contain"
                         style={{ filter: burger.shadow }}
+                        preload={burger.productId === 1}
                       />
                     </div>
 

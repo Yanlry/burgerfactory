@@ -3,6 +3,7 @@ import { Bebas_Neue, DM_Sans } from "next/font/google";
 import { LenisProvider } from "@/lib/providers/LenisProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { CookieConsent } from "@/components/common/CookieConsent";
 import "./globals.css";
 
 const bebasNeue = Bebas_Neue({
@@ -69,6 +70,7 @@ export default function RootLayout({
           <Header />
           {children}
           <Footer />
+          <CookieConsent />
         </LenisProvider>
       </body>
     </html>
