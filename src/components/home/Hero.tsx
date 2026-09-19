@@ -263,7 +263,7 @@ function HeroMobile() {
       </div>
 
       {/* ── Statut ouvert / fermé ───────────────────────────────────── */}
-      <div className="flex-1 flex items-center justify-center px-6 py-0">
+      <div className="flex-1 flex items-center justify-center px-6 py-0 pt-[24vw]">
         <AnimatePresence>
           {status && (
             <motion.div
